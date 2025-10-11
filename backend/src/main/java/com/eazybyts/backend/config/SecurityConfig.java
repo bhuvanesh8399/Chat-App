@@ -21,7 +21,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());  // Disable CSRF for API
         http.cors(Customizer.withDefaults());  // Enable CORS with default settings
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/register", "/auth/login", "/ws/**").permitAll()  // allow auth and websocket handshake
+            .requestMatchers("/auth/register", "/auth/login", "/ws/**", "/api/health").permitAll()  // allow auth and websocket handshake
             .anyRequest().authenticated()  // all other requests need auth
         );
         // Register our JWT filter before the default auth filter
