@@ -1,17 +1,15 @@
-import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client/dist/sockjs';
+// src/lib/ws.js
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 
-export function createStompClient({ baseUrl = 'http://localhost:8080', token }) {
-  const socketFactory = () => new SockJS(`${baseUrl}/ws`);
+export function createStompClient(token) {
+  // Use relative URL so Vite proxies it
+  const sock = new SockJS(import.meta.env.VITE_WS_URL || "/ws");
+  const client = over(sock);
 
-  const client = new Client({
-    webSocketFactory: socketFactory,
-    reconnectDelay: 3000,
-    debug: (str) => {
-      // console.debug(str);
-    },
-    connectHeaders: token ? { Authorization: `Bearer ${token}` } : {},
+  // connect with Authorization header
+  const connectHeaders = token ? { Authorization: `Bearer ${token}` } : {};
+  return new Promise((resolve, reject) => {
+    client.connect(connectHeaders, () => resolve(client), (err) => reject(err));
   });
-
-  return client;
 }
