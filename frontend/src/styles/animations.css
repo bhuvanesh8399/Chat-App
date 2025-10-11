@@ -1,0 +1,11 @@
+@keyframes pulse {
+  0% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.2; transform: scale(1); }
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  animation: pulse 1.5s infinite;
+}

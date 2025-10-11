@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:chatapp;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: update    # auto-create/update tables for dev
+    show-sql: true
+
+jwt:
+  secret: "CHANGE_ME_TO_A_32CHAR_MIN_SECRET_KEY"
+  expiration: 3600000    # 1 hour in milliseconds
+
+firebase:
+  server-key: "YOUR_FCM_SERVER_KEY_HERE"
